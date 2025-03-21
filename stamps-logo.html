@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Logo Stamps com Exportação Ajustada</title>
+<style>
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f8f8;
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+}
+.logo-container {
+    position: relative;
+    height: 40px; /* Ajustei para dar um pouco mais de espaço */
+    width: 190px; /* Largura fixa para garantir alinhamento consistente */
+    margin-bottom: 20px;
+    background-color: #f8f8f8; /* Fundo branco para melhorar a exportação */
+    border: 2px solid #ddd; /* Para destacar bem os limites */
+    display: flex;
+    justify-content: center;
+}
+.bloco {
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    opacity: 0.9;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.bloco:hover {
+    transform: rotate(0deg) scale(1.1);
+    opacity: 1;
+    z-index: 1;
+}
+.bloco:nth-child(1) { background-color: #007bff; left: 0; top: 2px; transform: rotate(-10deg); }
+.bloco:nth-child(2) { background-color: #ff6b6b; left: 32px; top: 8px; transform: rotate(5deg); }
+.bloco:nth-child(3) { background-color: #fdd835; left: 64px; top: 0px; transform: rotate(-3deg); }
+.bloco:nth-child(4) { background-color: #4caf50; left: 96px; top: 5px; transform: rotate(3deg); }
+.bloco:nth-child(5) { background-color: #e91e63; left: 128px; top: 10px; transform: rotate(-5deg); }
+.bloco:nth-child(6) { background-color: #673ab7; left: 160px; top: 2px; transform: rotate(2deg); }
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+</style>
+</head>
+<body>
+<div class="logo-container">
+    <div class="bloco">S</div>
+    <div class="bloco">t</div>
+    <div class="bloco">a</div>
+    <div class="bloco">m</div>
+    <div class="bloco">p</div>
+    <div class="bloco">s</div>
+</div>
+<button id="exportarPng">Exportar como PNG</button>
+<button id="exportarJpeg">Exportar como JPEG</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const logoContainer = document.querySelector('.logo-container');
+const exportarPngBtn = document.getElementById('exportarPng');
+const exportarJpegBtn = document.getElementById('exportarJpeg');
+
+exportarPngBtn.addEventListener('click', () => {
+    html2canvas(logoContainer, { scale: 3, useCORS: true }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'stamps_logo.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
+});
+
+exportarJpegBtn.addEventListener('click', () => {
+    html2canvas(logoContainer, { scale: 3, useCORS: true, backgroundColor: '#f8f8f8' }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'stamps_logo.jpeg';
+        link.href = canvas.toDataURL('image/jpeg', 0.9);
+        link.click();
+    });
+});
+</script>
+</body>
+</html>
